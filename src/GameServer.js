@@ -219,9 +219,10 @@ GameServer.prototype.onHttpServerOpen = function () {
     
     // Player bots (Experimental)
     if (this.config.serverBots > 0) {
-        for (var i = 0; i < this.config.serverBots; i++) {
-            this.bots.addBot();
-        }
+        this.bots.addBot(this.config.serverBots);
+        // for (var i = 0; i < this.config.serverBots; i++) {
+        //     this.bots.addBot();
+        // }
         Logger.info("Added " + this.config.serverBots + " player bots");
     }
 };
@@ -270,7 +271,8 @@ GameServer.prototype.onClientSocketOpen = function (ws) {
     ws.remoteAddress = ws._socket.remoteAddress;
     ws.remotePort = ws._socket.remotePort;
     ws.lastAliveTime = Date.now();
-    Logger.write("CONNECTED    " + ws.remoteAddress + ":" + ws.remotePort + ", origin: \"" + ws.upgradeReq.headers.origin + "\"");
+    //Logger.write("CONNECTED    " + ws.remoteAddress + ":" + ws.remotePort + ", origin: \"" + ws.upgradeReq.headers.origin + "\"");
+    Logger.write("CONNECTED    " + ws.remoteAddress + ":" + ws.remotePort + ", origin: \"" + ws.upgradeReq + "\"");
     
     ws.playerTracker = new PlayerTracker(this, ws);
     ws.packetHandler = new PacketHandler(this, ws);
